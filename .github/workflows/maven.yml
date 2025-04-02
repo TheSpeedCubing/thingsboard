@@ -27,7 +27,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      DOCEKRHUB_USERNAME: ${{ secrets.DOCEKRHUB_USERNAME }}
+      DOCEKRHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -36,6 +39,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+        
     - name: Build with Maven
       run: mvn clean install -DskipTests -Ddockerfile.skip=false
       
@@ -43,7 +47,7 @@ jobs:
       run: docker tag thingsboard/tb-ce:3.9.1 5giotlead/tb-ce:3.9.1
 
     - name: Log in to Docker Hub
-      run: echo "$(echo '${{ secrets.DOCKERHUB_PASSWORD }}')" | docker login -u "\${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+      run: echo "$DOCEKRHUB_PASSWORD" | docker login -u "$DOCEKRHUB_USERNAME" --password-stdin
 
     - name: Push Docker Image
       run: docker push 5giotlead/tb-ce:3.9.1
