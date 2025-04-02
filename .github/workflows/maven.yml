@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-name: Java CI with Maven
+name: Build and Deploy to DockerHub
 
 on:
   push:
