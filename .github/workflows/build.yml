@@ -17,8 +17,8 @@
 name: Build and Deploy to DockerHub
 
 on:
-#  push:
-#    tags: [ "main" ]
+  push:
+    branches: [ "v3.9.1" ]
 #  pull_request:
 #    tags: [ "" ]
   workflow_dispatch:
